@@ -14,30 +14,31 @@ uint16_t count_leading_zeros_16(uint16_t x)
     x += (x >> 8);
 
     // printf("%d\n", x);
-    return (16 - (x & 0x1f)); // change 0x7f to 0x3f
+    return (16 - (x & 0x1f)); // change 0x3f to 0x1f
 }
 
 int main(){
     // pixel test
     // 8-bit color depth for black and white photo
-    uint16_t picture[5] = {20,80,128,150,231};
-    uint16_t threshold = 128;
+    uint16_t picture[5] = {0,80,127,150,231};
+    uint16_t threshold = 127;
     uint16_t *pixel = picture;
 
-    // for(int i = 0; i < 5; i++){
-    //     uint16_t sub = threshold - *(pixel+i);
-    //     printf("%d, ",i);
-    //     printf("before = %d\n, ",*(pixel+i));
-    //     printf("sub1 : %d\n", sub);
-    //     sub = count_leading_zeros_16(sub);
-    //     printf("clz_sub2 : %d\n", sub);
-    //     if(sub)
-    //         *(pixel+i) = 0;
-    //     else
-    //         *(pixel+i) = 255;
-    //     printf("after = %d\n",*(pixel+i));
-    //     printf("--------------------------------\n");
-    // }
+    for(int i = 0; i < 5; i++){
+        uint16_t sub = threshold - *(pixel+i);
+        // printf("%d, ",i);
+        printf("before = %d\n, ",*(pixel+i));
+        // printf("sub1 : %d\n", sub);
+        sub = count_leading_zeros_16(sub);
+        // printf("clz_sub2 : %d\n", sub);
+        *(pixel+i) = (sub) ? 0 : 255;
+        // if(sub)
+        //     *(pixel+i) = 0;
+        // else
+        //     *(pixel+i) = 255;
+        printf("after = %d\n",*(pixel+i));
+        printf("--------------------------------\n");
+    }
 
 
 // verification
